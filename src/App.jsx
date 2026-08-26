@@ -2,21 +2,18 @@ import { useState } from "react";
 import Buttons from "./components/Buttons";
 import ProfileCard from "./components/ProfileCard";
 import TextInput from "./components/TextInput";
+import DataGrid from "./components/DataGrid";
 import myPhoto from "./assets/MyProfilePic.png";
 import "./App.css";
 
 function App() {
-  // Change these two values to your actual information
   const myName = "Muhammad Abdullah";
-  const githubLink = "https://github.com/YOUR-USERNAME/YOUR-REPO"; // TODO: replace with your project repository URL
+  const githubLink = "https://github.com/muhammadabdullah023-hash/Reusable-UI";
 
-  // Current selected theme
   const [theme, setTheme] = useState("blue");
 
-  // Input value (what the user is currently typing)
   const [username, setUsername] = useState("");
 
-  // Submitted value (only updates when Enter is pressed)
   const [submittedName, setSubmittedName] = useState("");
 
   function handleKeyDown(event) {
@@ -122,6 +119,17 @@ function App() {
             You have written: <span>{submittedName}</span> 👋
           </div>
         )}
+
+        {/* Reusability demo: same TextInput, fixed color, independent of theme */}
+        <div style={{ marginTop: "20px" }}>
+          <TextInput
+            placeholder="This input is always green, regardless of theme"
+            size="small"
+            color="green"
+            value=""
+            onChange={() => {}}
+          />
+        </div>
       </section>
 
       {/* PROFILE */}
@@ -144,6 +152,34 @@ function App() {
           github={githubLink}
           theme={theme}
         />
+
+        {/* Reusability demo: same ProfileCard, different data */}
+        <div style={{ marginTop: "30px" }}>
+          <ProfileCard
+            name="Ahram Tahir"
+            role="UI/UX Designer"
+            image="https://i.pravatar.cc/200?img=32"
+            github="https://github.com/example"
+            theme="orange"
+          />
+        </div>
+      </section>
+
+      {/* API DATA GRID */}
+      <section className="section">
+        <div className="section-title">
+          <span className="number">04</span>
+
+          <div>
+            <h2>Fetching Live Data (API)</h2>
+            <p>
+              Pulls real user data from a public API and displays it in a grid,
+              with a loading state while the request is in progress.
+            </p>
+          </div>
+        </div>
+
+        <DataGrid theme={theme} />
       </section>
 
       {/* FOOTER */}
