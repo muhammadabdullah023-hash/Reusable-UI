@@ -99,6 +99,12 @@ button, input { font-family: inherit; }
 .github-link:hover { background: var(--neon); color: #050508; box-shadow: 0 0 10px var(--neon), 0 0 30px var(--neon); }
 .github-link span { font-size: 18px; }
 
+.profile-cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
 /* FOOTER */
 footer { display: flex; justify-content: center; gap: 15px; margin-top: 100px; color: #44444d; font-size: 10px; font-weight: 800; letter-spacing: 3px; }
 footer span:nth-child(2) { color: var(--neon); text-shadow: 0 0 10px var(--neon); }

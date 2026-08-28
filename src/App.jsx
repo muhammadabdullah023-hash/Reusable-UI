@@ -92,11 +92,10 @@ function App() {
           </div>
         </div>
 
-        <ProfileCard name={myName} role="React Developer" image={myPhoto} github={githubLink} theme={theme} />
-
-        <div style={{ marginTop: "30px" }}>
-          <ProfileCard name="Ahram Tahir" role="UI/UX Designer" image={Ahrampic} github="https://github.com/example" theme="orange" />
-        </div>
+       <div className="profile-cards-row">
+  <ProfileCard name={myName} role="React Developer" image={myPhoto} github={githubLink} theme={theme} />
+  <ProfileCard name="Ahram Tahir" role="UI/UX Designer" image={Ahrampic} github="https://github.com/example" theme="orange" />
+</div>
       </section>
 
       {/* 04 - API DATA GRID */}
