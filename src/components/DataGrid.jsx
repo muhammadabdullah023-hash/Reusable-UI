@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import Buttons from "./Buttons";
 
-// Fetches random user data from the RandomUser public API
-// (https://randomuser.me) — no API key required.
-
 function DataGrid({ theme = "blue" }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,31 +11,23 @@ function DataGrid({ theme = "blue" }) {
     setError(null);
 
     fetch("https://randomuser.me/api/?results=6")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
+      .then((res) => (res.ok ? res.json() : Promise.reject("Network error")))
       .then((data) => {
         setUsers(data.results);
         setLoading(false);
       })
       .catch((err) => {
-        setError(err.message);
+        setError(err.toString());
         setLoading(false);
       });
   }
 
-  // Fetch data once when the component first mounts
   useEffect(() => {
     fetchUsers();
   }, []);
 
   return (
     <div className="data-grid-wrapper">
-
-      {/* LOADING STATE */}
       {loading && (
         <div className="loading-spinner-wrapper">
           <div className="loading-spinner"></div>
@@ -46,28 +35,16 @@ function DataGrid({ theme = "blue" }) {
         </div>
       )}
 
-      {/* ERROR STATE */}
-      {error && !loading && (
-        <p className="data-error">Something went wrong: {error}</p>
-      )}
+      {error && !loading && <p className="data-error">Something went wrong: {error}</p>}
 
-      {/* SUCCESS STATE */}
       {!loading && !error && (
         <div className="data-grid">
-          {users.map((user) => (
-            <div className="data-card" key={user.login.uuid}>
-              <img
-                src={user.picture.medium}
-                alt={user.name.first}
-                className="data-card-img"
-              />
-              <h4>
-                {user.name.first} {user.name.last}
-              </h4>
-              <p className="data-card-email">{user.email}</p>
-              <p className="data-card-location">
-                {user.location.city}, {user.location.country}
-              </p>
+          {users.map((u) => (
+            <div className="data-card" key={u.login.uuid}>
+              <img src={u.picture.medium} alt={u.name.first} className="data-card-img" />
+              <h4>{u.name.first} {u.name.last}</h4>
+              <p className="data-card-email">{u.email}</p>
+              <p className="data-card-location">{u.location.city}, {u.location.country}</p>
             </div>
           ))}
         </div>
@@ -75,12 +52,7 @@ function DataGrid({ theme = "blue" }) {
 
       {!loading && (
         <div className="data-grid-refresh">
-          <Buttons
-            text="🔄 FETCH NEW DATA"
-            color={theme}
-            size="medium"
-            onClick={fetchUsers}
-          />
+          <Buttons text="🔄 FETCH NEW DATA" color={theme} size="medium" onClick={fetchUsers} />
         </div>
       )}
     </div>
